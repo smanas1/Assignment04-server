@@ -8,7 +8,8 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://assignment04-client.smanas.net"],
+    origin: "https://assignment04-client.smanas.net",
+    credentials: true,
   })
 );
 
