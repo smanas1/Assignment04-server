@@ -21,7 +21,7 @@ const borrowRoute = express_1.default.Router();
 borrowRoute.post("/borrow", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { book, quantity, dueDate } = req.body;
-        yield books_model_1.Book.borrowBook(book, quantity);
+        yield books_model_1.Book.borrowBook(book, quantity, dueDate);
         const borrowRecord = new borrow_model_1.BorrowBook({
             book: book,
             quantity: quantity,

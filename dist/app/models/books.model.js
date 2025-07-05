@@ -65,14 +65,36 @@ const BookSchema = new mongoose_1.Schema({
     timestamps: true,
     versionKey: false,
 });
-BookSchema.statics.borrowBook = function (bookId, quantity) {
+BookSchema.pre("save", function (next) {
+    this.available = this.copies > 0;
+    next();
+});
+BookSchema.pre(["findOneAndUpdate", "updateOne", "updateMany"], function (next) {
+    const update = this.getUpdate();
+    // If copies is being updated
+    if (update.copies !== undefined) {
+        update.available = update.copies > 0;
+    }
+    // Handle $set operator
+    if (update.$set && update.$set.copies !== undefined) {
+        update.$set.available = update.$set.copies > 0;
+    }
+    next();
+});
+BookSchema.statics.borrowBook = function (bookId, quantity, dueDate) {
     return __awaiter(this, void 0, void 0, function* () {
         const book = yield this.findById(bookId);
         if (!book) {
             throw new Error("Book not found");
         }
+        if (!dueDate) {
+            throw new Error("Due date is required");
+        }
         if (book.copies < quantity) {
             throw new Error("Not enough copies available");
+        }
+        if (quantity <= 0) {
+            throw new Error("Quantity must be greater than zero");
         }
         book.copies -= quantity;
         if (book.copies === 0) {
