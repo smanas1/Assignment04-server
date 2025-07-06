@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://assignment04-client.vercel.app/",
+    origin: "https://assignment04-client.smanas.net",
   })
 );
 
