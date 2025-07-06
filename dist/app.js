@@ -11,7 +11,6 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
     origin: "https://assignment04-client.smanas.net",
-    credentials: true,
 }));
 app.get("/", (req, res) => {
     res.send("Welcome to Library Management App");
