@@ -8,10 +8,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: [
-      "https://assignment04-client.vercel.app/",
-      "http://localhost:3000",
-    ],
+    origin: "https://assignment04-client.vercel.app/",
   })
 );
 
