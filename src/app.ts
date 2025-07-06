@@ -8,8 +8,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    // origin: "https://assignment04-client.smanas.net",
-    origin: "http://localhost:5173",
+    origin: "https://assignment04-client.smanas.net",
     credentials: true,
   })
 );
